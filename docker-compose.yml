@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  qt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qt-6.7.3-arm64
+    platform: linux/arm64
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    volumes:
+      - ./data:/data
+    command: /bin/bash
