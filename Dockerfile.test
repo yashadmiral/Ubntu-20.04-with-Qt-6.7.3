@@ -1,0 +1,3 @@
+# Smallest possible test image
+FROM alpine:3.19
+CMD ["echo", "✅ GHCR push test successful!"]

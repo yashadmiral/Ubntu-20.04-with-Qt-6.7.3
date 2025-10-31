@@ -1,0 +1,31 @@
+name: Test GHCR Push
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          # For testing, try GITHUB_TOKEN first — replace with GHCR_PAT if it fails
+          password: ${{ secrets.GIT_PACKAGE_WRITE_TOKEN }}
+
+      - name: Build and push a tiny test image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/qt-test-arm64:latest
+            ghcr.io/${{ github.repository_owner }}/qt-test-arm64:${{ github.run_number }}
+          file: ./Dockerfile.test
+          platforms: linux/amd64
