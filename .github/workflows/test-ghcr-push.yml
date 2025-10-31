@@ -16,7 +16,6 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          # For testing, try GITHUB_TOKEN first — replace with GHCR_PAT if it fails
           password: ${{ secrets.GIT_PACKAGE_WRITE_TOKEN }}
 
       - name: Build and push a tiny test image

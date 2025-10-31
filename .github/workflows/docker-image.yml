@@ -2,9 +2,7 @@ name: Build and Push Qt 6.7.3 ARM64 Image
 
 on:
   workflow_dispatch:   # manually trigger builds
-  push:
-    branches:
-      - main           # auto-build when you push to main
+
 
 jobs:
   build:
@@ -25,7 +23,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GIT_PACKAGE_WRITE_TOKEN }}
 
       - name: Build and push image
         uses: docker/build-push-action@v5
