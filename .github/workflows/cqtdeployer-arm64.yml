@@ -1,8 +1,7 @@
 name: Build CQtDeployer from latest Qt 6.7.3 image (ARM64)
 
 on:
-  # Run automatically after the Qt base image workflow completes,
-  # or manually via the Actions tab.
+  # Auto-run after the Qt base image workflow, or trigger manually.
   workflow_run:
     workflows: ["Build and Push Qt 6.7.3 ARM64 Image"]
     types: [completed]
@@ -17,9 +16,12 @@ jobs:
       packages: read
 
     env:
+      # Built by .github/workflows/docker-image.yml
       BASE_IMAGE: ghcr.io/${{ github.repository_owner }}/qt-6.7.3-arm64:latest
       QT_PREFIX: /opt/Qt/6.7.3
       CQT_REF: main
+      # Ensure arm64 pulls/builds on amd64 runners
+      DOCKER_DEFAULT_PLATFORM: linux/arm64
 
     steps:
       - name: Checkout
@@ -40,8 +42,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GIT_PACKAGE_WRITE_TOKEN }}
 
-      - name: Pre-pull latest base image
-        run: docker pull "${{ env.BASE_IMAGE }}"
+      - name: Pre-pull latest base image (arm64)
+        run: docker pull --platform=linux/arm64 "${{ env.BASE_IMAGE }}"
 
       - name: Build CQtDeployer image (linux/arm64) and export filesystem
         uses: docker/build-push-action@v6
