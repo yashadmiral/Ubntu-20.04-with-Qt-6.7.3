@@ -31,7 +31,7 @@ RUN mkdir build
 WORKDIR /tmp/qt-src/build
 
 # Configure Qt for dynamic/shared build
-RUN cmake .. -DCMAKE_INSTALL_PREFIX=${QTDIR} -DBUILD_SHARED_LIBS=ON -DQT_FEATURE_core=ON -DQT_FEATURE_network=ON -DQT_FEATURE_serialport=ON -DQT_FEATURE_concurrent=ON -DQT_FEATURE_gui=OFF -DQT_FEATURE_widgets=OFF -DQT_FEATURE_qml=OFF -DQT_FEATURE_qtcharts=OFF -DQT_FEATURE_qt3d=OFF -DQT_FEATURE_qtmultimedia=OFF -DQT_FEATURE_qtquick3d=OFF -DQT_FEATURE_qtsvg=OFF -DQT_FEATURE_qtwebengine=OFF -DQT_FEATURE_qtwebsockets=OFF -DQT_FEATURE_qtwayland=OFF -DQT_FEATURE_qttools=OFF -DQT_FEATURE_qttranslations=OFF -DQT_FEATURE_qtvirtualkeyboard=OFF -DQT_FEATURE_qtwinextras=OFF -DQT_FEATURE_qtxmlpatterns=OFF -DQT_FEATURE_qtdeclarative=OFF -DQT_FEATURE_tests=OFF -DQT_FEATURE_examples=OFF
+RUN cmake .. -DCMAKE_INSTALL_PREFIX=${QTDIR} -DBUILD_SHARED_LIBS=ON -DQT_FEATURE_core=ON -DQT_FEATURE_network=ON -DQT_FEATURE_serialport=ON -DQT_FEATURE_concurrent=ON -DQT_FEATURE_gui=ON -DQT_FEATURE_widgets=ON -DQT_FEATURE_qml=OFF -DQT_FEATURE_qtcharts=OFF -DQT_FEATURE_qt3d=OFF -DQT_FEATURE_qtmultimedia=OFF -DQT_FEATURE_qtquick3d=OFF -DQT_FEATURE_qtsvg=OFF -DQT_FEATURE_qtwebengine=OFF -DQT_FEATURE_qtwebsockets=OFF -DQT_FEATURE_qtwayland=OFF -DQT_FEATURE_qttools=OFF -DQT_FEATURE_qttranslations=OFF -DQT_FEATURE_qtvirtualkeyboard=OFF -DQT_FEATURE_qtwinextras=OFF -DQT_FEATURE_qtxmlpatterns=OFF -DQT_FEATURE_qtdeclarative=OFF -DQT_FEATURE_tests=OFF -DQT_FEATURE_examples=OFF
 RUN make -j$(nproc)
 RUN make install
 
